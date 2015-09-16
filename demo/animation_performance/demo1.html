@@ -1,0 +1,105 @@
+
+<html>
+	<head>
+		<style type="text/css">
+		a {
+			color: #000;
+			outline: none;
+			text-decoration: none;
+			cursor: pointer;
+		}
+		a :active {
+			color: #000;
+			outline: none;
+			text-decoration: none;
+		}
+		div {
+			width: 200px;
+			height: 200px;
+			margin: 100px;
+			background-color: gray;
+			/*-webkit-transform: translate3d(0,0,0);*/
+		}
+		@-webkit-keyframes slide {
+			from {
+				-webkit-transform: translate(0);
+			}
+			to {
+				-webkit-transform: translate(100px);
+			}
+		}
+		.animation {
+			-webkit-animation-duration: 5s;
+		  	-webkit-animation-name: slide;
+	  		-webkit-animation-iteration-count: infinite;
+			-webkit-animation-direction: alternate;
+		}
+		.changeWidth {
+			width: 400px;
+		}
+		.changeBackground {
+			background-color: #ff0;
+		}
+		.transform {
+			-webkit-transform: translate(200px);
+		}
+		.transform3d {
+			-webkit-transform: translate3d(200px,0,0);
+		}
+		/*p {
+			width:200px;
+			-webkit-transform: translate3d(0,0,0);
+		}*/
+		</style>
+	</head>
+	<body>
+		<div></div>
+		<p>xxxxx</p>
+
+		<a id="changeWidth">change width</a><br/>
+		<a id="changeBackground">change background</a><br/>
+		<a id="transform">transform</a><br/>
+		<!-- <a id="transform3d">transform3d</a><br/> -->
+		<!-- <a id="animation">animation</a><br/> -->
+
+		<script type="text/javascript">
+
+			var ele = document.querySelector('div');
+
+			document.querySelector('#changeWidth').onclick = function () {
+				setTimeout(function () {
+					ele.className = 'changeWidth';
+				},2000)
+
+			}
+
+			document.querySelector('#changeBackground').onclick = function () {
+				setTimeout(function () {
+					ele.className = 'changeBackground';
+				},2000)
+			}
+
+			document.querySelector('#transform').onclick = function () {
+				setTimeout(function () {
+					ele.className = 'transform';
+					console.log('不加速还是会paint哇');
+				},2000)
+			}
+
+			// document.querySelector('#transform3d').onclick = function () {
+			// 	setTimeout(function () {
+			// 		ele.className = 'transform3d';
+			// 		// document.querySelector('p').className = 'transform3d';
+			// 	},2000)
+			// }
+
+			// document.querySelector('#animation').onclick = function () {
+			// 	setTimeout(function () {
+			// 		ele.className = 'animation';
+			// 	},2000)
+			// }
+
+
+		</script>
+	</body>
+</html>

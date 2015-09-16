@@ -20,8 +20,201 @@
 		<!-- Code syntax highlighting -->
 		<link rel="stylesheet" href="lib/css/zenburn.css">
 
-		<!-- my own style -->
+		<!-- font icons -->
+		<link rel="stylesheet" href="css/font-awesome.min.css">
+		<link rel="stylesheet" href="css/w3.css">
+		<style type="text/css">
+			.reveal [class^="fa-"],
+            .reveal [class*=" fa-"] {
+                font-family: FontAwesome;
+                font-weight: normal;
+                font-style: normal;
+                text-decoration: inherit;
+                -webkit-font-smoothing: antialiased;
+                *margin-right: .3em;
+            }
+		</style>
+
+		<!-- custom style -->
 		<link rel="stylesheet" href="css/custom.css">
+
+
+
+		<style type="text/css">
+			.reveal h2 {
+				 text-transform: initial;
+			}
+			/*杨龙图片显示*/
+			.yanglongmask {
+				 -webkit-animation: slide-down-mask 3s linear infinite;
+			}
+			@-webkit-keyframes slide-down-mask
+			{
+				from {
+				    -webkit-transform:translate(0, 0);
+				}
+				to {
+				    -webkit-transform:translate(0, 400px);
+				}
+			}
+			/*bitmap传输*/
+			.bitmap {
+			    -webkit-animation: transfer 1s linear infinite;
+			}
+
+			@-webkit-keyframes transfer
+			{
+			from {
+			    -webkit-transform:translate(-150px, -50px) rotate(1deg);
+			}
+			to {
+			    -webkit-transform:translate(150px, -50px) rotate(360deg);
+			}
+			}
+
+			/* gpu和cpu对比 */
+			/************************ paper ********************************/
+			.reveal .paper {
+			    display: inline-block;
+			    width: 450px;
+			    height: 500px;
+			    background: white;
+			    border: 1px solid #ccc;
+			    box-shadow: 0 0 12px 1px #ccc;
+			    overflow: hidden;
+			}
+
+			.reveal .paper.visible .cpu-paint
+			{
+			    -webkit-animation: cpupaint 160s steps(80) infinite;
+			}
+			.reveal .paper.visible .gpu-paint
+			{
+			    -webkit-animation: cpupaint 80s steps(40) infinite;
+			}
+			.reveal .paper.visible .pencil {
+			    -webkit-animation: pencil 4s linear infinite;
+			}
+			.reveal .paper.visible .mask {
+			    -webkit-animation: mask 4s linear infinite;
+			}
+
+			.reveal .paper.visible .stamp {
+			    -webkit-animation: mask 1s steps(2) infinite;
+			}
+
+			.reveal .cpu-paint,
+			.reveal .gpu-paint
+			{
+			    position: relative;
+			    width: 100px;
+			    height: 100px;
+			    margin: auto;
+			    margin-top: 150px;
+			    background: url(./css/img/logo.png) no-repeat center center;
+			    background-size: cover;
+			}
+
+			.reveal .pencil {
+			    width: 100%;
+			    height: 100%;
+			    background: url(./css/img/pencil.png) no-repeat center center;
+			    background-size: auto 100%;
+			    transform: rotate(-45deg) translateY(-21%);
+			    top: 5%;
+			}
+
+			.reveal .mask {
+			    //display: none;
+			    width: 150%;
+			    height: 150%;
+			    background: url(./css/img/mask.png) no-repeat center center;
+			    background-size: cover;
+			    transform: rotate(-45deg) translateY(-21%) translateX(25%);
+			    position: absolute;
+			    top: 0;
+			    left: 0;
+			}
+
+			.reveal .gpu-paint {
+			}
+
+			.reveal .stamp {
+			    width: 200%;
+			    height: 400%;
+			    background: url(./css/img/stamp.png) no-repeat center center;
+			    background-size: 100% auto;
+			    transform: translateY(-28%) translateX(-8%);
+			}
+
+			@-webkit-keyframes stamp {
+			    0 {
+			        opacity: 0;
+			    }
+
+			    50% {
+			        opacity: 1;
+			    }
+
+			    0 {
+			        opacity: 0;
+			    }
+			}
+
+			@-webkit-keyframes cpupaint {
+			    0 {
+			    }
+			    100% {
+			        transform: scale(4);
+			    }
+			}
+
+			@-webkit-keyframes mask {
+			    0 {
+			        transform: rotate(-45deg) translateY(-21%);
+			    }
+			    100% {
+			        transform: rotate(-45deg) translateY(55%);
+			    }
+			}
+			@-webkit-keyframes pencil {
+			    0% {
+			        transform: rotate(-45deg) translateY(-21%) translateX(45%) translateY(0);
+			    }
+			    10% {
+			        transform: rotate(-45deg) translateY(-21%) translateX(-45%) translateY(10%);
+			    }
+			    20% {
+			        transform: rotate(-45deg) translateY(-21%) translateX(45%) translateY(20%);
+			    }
+			    30% {
+			        transform: rotate(-45deg) translateY(-21%) translateX(-45%) translateY(30%);
+			    }
+			    40% {
+			        transform: rotate(-45deg) translateY(-21%) translateX(45%) translateY(40%);
+			    }
+			    45% {
+			        transform: rotate(-45deg) translateY(-21%) translateX(-45%) translateY(45%);
+			    }
+			    60% {
+			        transform: rotate(-45deg) translateY(-21%) translateX(45%) translateY(60%);
+			    }
+			    70% {
+			        transform: rotate(-45deg) translateY(-21%) translateX(-45%) translateY(70%);
+			    }
+			    80% {
+			        transform: rotate(-45deg) translateY(-21%) translateX(45%) translateY(80%);
+			    }
+			    90% {
+			        transform: rotate(-45deg) translateY(-21%) translateX(-45%) translateY(90%);
+			    }
+			    100% {
+			        transform: rotate(-45deg) translateY(-21%) translateX(45%) translateY(100%);
+			    }
+			}
+
+		</style>
+
 
 		<!-- Printing and PDF exports -->
 		<script>
@@ -45,118 +238,387 @@
 			<div class="slides">
 				<section>
 					<h1>Web高性能动画</h1>
-					<section>
-						<p>CSS3:transform,transition,animation<span class="f-large">&nbsp;VS&nbsp;</span>left,top,width,height</p>
-					</section>
-					<section>
+					<div class="fragment">
+						<p>transform,transition,animation<span class="f-large">&nbsp;VS&nbsp;</span>left,top,width,height</p>
+					</div>
+					<div class="fragment">
 						<p>requestAnimationFrame<span class="f-large">&nbsp;VS&nbsp;</span>setTimeout</p>
+					</div>
+				</section>
+
+				<section>
+					<section data-markdown>
+						<script type="text/template">
+						<h2>渲染过程...</h2>
+						```
+							<html>
+								<head></head>
+								<body>
+									<p>xxx</p>
+									<div>
+										<span>xxx</span>
+									</div>
+								</body>
+							</html>
+						```
+						</script>
+					</section>
+
+					<section>
+						<h2 class="fragment" data-fragment-index="3">dom + css = render tree</h2>
+
+						<div>
+							<div style="position:relative;display:inline-block;width:40%;">
+								<img src="./resource/img/dom.png">
+								<img src="./resource/img/parsehtml.png" class="fragment" data-fragment-index="1" style="position:absolute;left:0;top:50%;">
+							</div>
+							<span class="fa fa-arrow-right w3-xxxlarge fragment" data-fragment-index="1" style="display: inline-block;vertical-align: top;margin-top: 200px;"></span>
+							<div class="fragment" data-fragment-index="2" style="position:relative;display:inline-block;width:40%;">
+								<img src="./resource/img/rendertree.png">
+								<img src="./resource/img/parserender.png" style="position:absolute;left:0;top:50%;">
+							</div>
+						</div>
+					</section>
+
+					<section>
+						<h2>layout</h2>
+						<div style="position:relative;">
+							<div class="fragment" data-fragment-index="0" style="padding:20px;background-color:#fff;color:#000;">
+								html<br/>
+								<div class="fragment" data-fragment-index="1" style="padding:20px;background-color:#ccc;;">
+									body
+									<div class="fragment" data-fragment-index="2" style="padding:20px;background-color:#EDED7D;">
+										p<br/>
+									</div>
+									<div class="fragment" data-fragment-index="2" style="padding:20px;margin-top:20px;background-color:#EDED7D;">
+										div<br/>
+										<div class="fragment" data-fragment-index="3" style="background-color:#0ff;">
+											span<br/>
+										</div>
+									</div>
+								</div>
+
+							</div>
+							<img src="./resource/img/parselayout.png" style="position:absolute;left:0;top:0;" class="fragment" data-fragment-index="4">
+						</div>
+
+					</section>
+
+					<section>
+						<h2 id="paintSection" style="cursor:pointer;">paint</h2>
+						<div style="position:relative;width:300px;margin: 0 auto;">
+							<img src="./resource/img/yanglong.gif">
+							<div id="yanglongmask" class="" style="position:absolute;left:0;top:0;width:100%;height:100%;background-color:#222;"></div>
+							<img class="fragment"  src="./resource/img/parselayout.png" style="position:absolute;left:-300px;top:0;">
+						</div>
+						<script type="text/javascript">
+							document.querySelector('#paintSection').onclick = function () {
+								document.querySelector('#yanglongmask').className = "yanglongmask";
+							};
+
+						</script>
+					</section>
+
+					<section style="position:relative;">
+						<h2>将bitmap传输至GPU,渲染至屏幕</h2>
+						<div style="display:inline-block;background-color:#fff;width:130px;padding:10px;-webkit-transform: translateX(-150px);font-size:20px;font-weight: bold;color:#333;">
+							<img src="./resource/img/CPU.png">
+							CPU
+						</div>
+						<img class="bitmap" src="./resource/img/yanglong.gif" style="width:100px;">
+						<div style="display:inline-block;background-color:#fff;width:130px;padding:10px;-webkit-transform: translateX(150px);font-size:20px;font-weight: bold;color:#333;">
+							<img src="./resource/img/GPU.png">
+							GPU
+						</div>
+						<img class="fragment"  src="./resource/img/parsecomposite.png" style="position:absolute;left:-150px;top:0;">
+					</section>
+
+					<section>
+						<h2>渲染过程</h2>
+
+						<img src="./resource/img/devtools-waterfall.jpg" style="width:60%;">
+						<p class="f-small">Chrome DevTools 框架模式。 瀑布流越高，说明浏览器做的越多。</p>
+						<p>来一发<a href="./demo/animation_performance/demo1.html" target="_blank">demo1</a></p>
+
 					</section>
 				</section>
 
 				<section>
-					渲染过程列表,附chrome截图
+					<section>
+						<h2>transform还是会paint?</h2>
+						<div class="fragment">
+							<p>快使用硬加速!</p>
+							<p>再来一发<a href="./demo/animation_performance/demo2.html" target="_blank">demo2</a></p>
+							<p class="fragment">貌似触发条件没有想象的那么简单,先研究一下GraphicsLayer层~</p>
+						</div>
+					</section>
 
-					获取 DOM 并将其分割为多个层
-					将每个层独立的绘制进位图中
-					将层作为纹理上传至 GPU
-					复合多个层来生成最终的屏幕图像。
+					<section>
+						<h2>GraphicsLayer</h2>
+						<ul>
+							<li>dom解析时在某些条件下生成GraphicsLayer,每个层将独立的绘制进bitmap中</li>
+							<li>bitmap传输到GPU作为texture渲染,并存储起来</li>
+							<li>特定css属性的变化,可以让层不用重新paint,而直接通过GPU中的textrue进行重新复合生成最终的屏幕图像,达到加速目的</li>
+						</ul>
+						<p>看<a href="./demo/animation_performance/demo1.html" target="_blank">demo2</a>的层</p>
+					</section>
+
+					<section>
+						<h2>GraphicsLayer触发条件</h2>
+						<ul>
+							<li>3D 或透视变换(perspective transform) CSS 属性</li>
+							<li>使用加速视频解码的 &lt;video&gt; 元素</li>
+							<li>拥有 3D (WebGL) 上下文或加速的 2D 上下文的 &lt;canvas&gt; 元素</li>
+							<li>混合插件(如 Flash)</li>
+							<li>对自己的 opacity 做 CSS 动画或使用一个动画 webkit 变换的元素</li>
+							<li>拥有加速 CSS 过滤器的元素</li>
+							<li>元素有一个包含复合层的后代节点(换句话说，就是一个元素拥有一个子元素，该子元素在自己的层里)</li>
+							<li>元素有一个 z-index 较低且包含一个复合层的兄弟元素(换句话说就是该元素在复合层上面渲染)</li>
+						</ul>
+					</section>
+
+					<section>
+						<h2>我们的常用触发方法</h2>
+						<div class="fragment">
+						<p>试一下will-change,不要用translate3D</p>
+						<pre>
+							<code>
+		.to-animate {
+		    will-change:transform,opactiy;
+		}
+							</code>
+						</pre>
+						</div>
+					</section>
+
+					<section>
+						<h2>使用硬件加速后...</h2>
+					</section>
+
+					<section>
+						<h2>跟贴小广告一样贴得飞起</h2>
+						<div class="paper fragment visible" data-fragment-index="0">
+						    <div class="cpu-paint">
+						        <div class="mask"></div>
+						        <div class="pencil"></div>
+						    </div>
+						</div>
+						<div class="paper fragment visible" data-fragment-index="1">
+						    <div class="gpu-paint">
+						        <div class="stamp"></div>
+						    </div>
+						</div>
+					</section>
+
+					<section>
+						<h2 class="fragment">不用再传输了</h2>
+						<div style="display:inline-block;background-color:#fff;width:130px;padding:10px;-webkit-transform: translateX(-150px);font-size:20px;font-weight: bold;color:#333;">
+							<img src="./resource/img/CPU.png">
+							CPU
+						</div>
+						<img class="bitmap" src="./resource/img/yanglong.gif" style="width:100px;">
+						<div style="display:inline-block;background-color:#fff;width:130px;padding:10px;-webkit-transform: translateX(150px);font-size:20px;font-weight: bold;color:#333;">
+							<img src="./resource/img/GPU.png">
+							GPU
+						</div>
+						<i class="fa fa-close w3-xxxlarge fragment" style=" position: absolute;left: 50%;  top: 50%;  font-size: 130px !important;  margin-left: -50px;color:#FD5959;"></i>
+					</section>
 				</section>
 
 				<section>
-					parse html
-
-					Each node in the DOM tree that produces visual output has a corresponding RenderObject. RenderObjects are stored in a parallel tree structure, called the Render Tree. A RenderObject knows how to paint the contents of the Node on a display surface. It does so by issuing the necessary draw calls to a GraphicsContext. A GraphicsContext is responsible for writing the pixels into a bitmap that eventually get displayed to the screen. In Chrome, the GraphicsContext wraps Skia, our 2D drawing library.
-
-
-
+					<h2>想要柔顺的体验?</h2>
+					<img src="./resource/img/gentle.png">
 				</section>
 
 				<section>
-					layout
+					<section>
+						<h2>fps--frame per second</h2>
 
-					RenderObjects that share the same coordinate space (e.g. are affected by the same CSS transform) typically belong to the same RenderLayer. RenderLayers exist so that the elements of the page are composited in the correct order to properly display overlapping content, semi-transparent elements, etc. There's a number of conditions that will trigger the creation of a new RenderLayer for a particular RenderObject, as defined in RenderBoxModelObject::requiresLayer() and overwritten for some derived classes.
+						<embed width="240" height="320" style="margin-bottom:20px" src="http://boallen.com/assets/flash/fps-compare/fps-compare-30fps.swf" quality="high" bgcolor="#1e1e1e" name="fps-compare-30fps" align="middle" allowscriptaccess="sameDomain" allowfullscreen="false" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer">
+
+
+						<embed width="240" height="320" style="margin-bottom:20px" src="http://boallen.com/assets/flash/fps-compare/fps-compare-60fps.swf" quality="high" pluginspage="http://www.macromedia.com/go/getflashplayer" align="middle" play="true" loop="true" scale="showall" wmode="window" devicefont="false" bgcolor="#1e1e1e" name="fps-compare-60fps" menu="true" allowfullscreen="false" allowscriptaccess="sameDomain" salign="" type="application/x-shockwave-flash">
+
+						<ul>
+						<li class="fragment f-small">对我们的眼睛来说：30FPS+感觉流畅，60FPS更舒服完美</li>
+						</ul>
+					</section>
+
+					<section>
+						<h2>丝滑酸爽的体验意味着:</h2>
+						<ul>
+						<li class="fragment f-small">在1 / 60FPS, 约等于16.7ms内，我们要把这一帧准备好。</li>
+						</ul>
+					</section>
+
+					<section>
+						<h2>两个问题</h2>
+						<ul>
+						<li class="fragment f-small">开始绘制的时机</li>
+						<li class="fragment f-small">绘制一帧的时间</li>
+						</ul>
+					</section>
+				</section>
+				<section>
+					<section>
+						<h2>绘制的时机</h2>
+						<br/>
+						<p class="f-small">setTimeout(callback, 1/60);</p>
+						<p style="color:#f00" class="fragment">NO!</p>
+						<ul class="fragment">
+						<li class="f-small">依靠浏览器内置时钟更新频率. eg. IE8及以前更新间隔为15.6, setTimeout 16.7, 它需要两个15.6ms才触发。超过14.5ms</li>
+						<li class="f-small">setTimeout在主线程队列中需要等待</li>
+						</ul>
+					</section>
+
+					<section>
+						<h2>丢帧了</h2>
+						<iframe src="demo/animation_performance/fps.html" style="width: 100%; height: 280px;background:#fff;"></iframe>
+					</section>
+
+					<section>
+						<h2>requestAnimationFrame</h2>
+						<p style="color:#0f0" class="fragment">YES!</p>
+						<ul class="fragment">
+						<li class="f-small">定义绘制每一帧前的工作。 requestAnimationFrame(callback)</li>
+						<li class="f-small">自动调节频率。callback工作太多无法在一帧内完成，会自动降低为30FPS, 虽然频率降低但比丢帧好。</li>
+						</ul>
+					</section>
 				</section>
 
 				<section>
-					paint
+					<section>
+						<h2>渲染一帧的时间</h2>
+						<p>目标：16ms-</p>
+					</section>
+					<section>
+						<h2>渲染过程</h2>
+						<img src="./resource/img/devtools-waterfall.jpg" style="width:60%;">
+						<p class="f-small">瀑布流越高，说明浏览器做的越多。渲染时间越长.</p>
+					</section>
+					<section>
+						<h2>Layout</h2>
+						<p style="text-align:left;">触发layout操作:</p>
+						<ul>
+						<li class="fragment visible" data-fragment-index="0">改变width, height, margin等和大小、位置相关的属性</li>
+						<li class="fragment visible" data-fragment-index="1">读取size, position相关得属性<span style="color: #f00;font-size:150%;">!</span></li>
+						</ul>
+					</section>
+					<section>
+						<h2>读取这些属性会引起layout</h2>
+						<p>
+							clientHeight, clientLeft, clientTop, clientWidth, focus(), getBoundingClientRect(), getClientRects(), innerText, offsetHeight, offsetLeft, offsetParent, offsetTop, offsetWidth, outerText, scrollByLines(), scrollByPages(), scrollHeight, scrollIntoView(), scrollIntoViewIfNeeded(), scrollLeft, scrollTop, scrollWidth .....
+						</p>
+					</section>
+					<section>
+						<h2>尽量不触发Layout,使用transform</h2>
+						<p>这个我们之前已经讲过...</p>
+					</section>
+					<section>
+						<h2>频繁Layout</h2>
+						<pre>
+							<code>
+	var h1 = element1.clientHeight;
+	element1.style.height = (h1 * 2) + 'px';
+
+	var h2 = element2.clientHeight;
+	element2.style.height = (h2 * 2) + 'px';
+
+	var h3 = element3.clientHeight;
+	element3.style.height = (h3 * 2) + 'px';
+							</code>
+						</pre>
+					</section>
+					<section>
+						<a href="./demo/animation_performance/layout.html"><img src="../resource/img/before.png">demo</a>
+
+					</section>
+					<section>
+						<h2>requestAnimationRequest推迟执行</h2>
+						<pre>
+							<code>
+	document.body.addEventListener('click', function() {
+	    // Read
+	    var h1 = element1.clientHeight;
+	    // Write
+	    requestAnimationFrame(function() {
+	      element1.style.height = (h1 * 2) + 'px';
+	    });
+	});
+	document.body.addEventListener('click', function() {
+	  // Read
+	  var h2 = element2.clientHeight;
+	  // Write
+	  requestAnimationFrame(function() {
+	    element2.style.height = (h2 * 2) + 'px';
+	    });
+	});
+							</code>
+						</pre>
+					</section>
+
+					<section>
+						<h2>Paint</h2>
+						<ul>
+						<li>当修改border-radius, box-shadow, color等展示相关属性时，会触发paint</li>
+						</ul>
+					</section>
+					<section>
+						<h2>Paint的代价</h2>
+						<p>不用说了...<a href="./demo/animation_performance/paint.html">Enable continuous page repainting</a>看一下</p>
+					</section>
+					<section>
+						<h2>减少不必的绘制</h2>
+						<p>gif图即使被其他Layer盖住不可见，也可能导致paint，不需要时应将gif图的display属性设为none。</p>
+					</section>
+					<section>
+						<h2>减少绘制区域</h2>
+						<p>为引起大范围Paint的元素生成独立的Layer以减小Paint的范围</p>
+					</section>
+
+					<section>
+						<h2>Composite</h2>
+						<p>也不能让GPU太累了,避免意外生成layer</p>
+						<ul>
+							<li>z-index高于Layer的元素，也会生成单独的Layer</li>
+						</ul>
+					</section>
 				</section>
 
-				<section>
-					composite
-
+				<section data-background="#3C70B5">
+					<h2>Summary</h2>
+					<ul class="fragment">
+						<li>多用css3,少用盒子模型和定位;</li>
+						<li>脚本用requestAnimationFrame,不用setTimeout;</li>
+						<li>dom读写操作合并;</li>
+						<li>局部更新,例如硬件加速;</li>
+					</ul>
 				</section>
 
-				<section>
-					渲染过程对应哪些css
-
-					layout:width,height,margin,left...
-					paint:background,box-shadow,border-radius
-					composite:transform,opacity
+				<section data-background="#9BC53D">
+					<h2>Tools</h2>
+					<ul>
+						<li data-fragment-index="0">timeline</li>
+						<li data-fragment-index="1">show paint rectangles</li>
+						<li data-fragment-index="2">show composite layer borders</li>
+						<li data-fragment-index="3">show FPS meter</li>
+						<li data-fragment-index="4">continuous painting mode</li>
+						<li data-fragment-index="5">show potential scroll bottleneck</li>
+						<li data-fragment-index="6">chrome://tracing</li>
+					</ul>
 				</section>
 
-				<section>
-					小结:
-					...
-					...
-					...
-					触发的越前,代价越大
+				<section data-background="#4d7e65">
+					<h2>Resources</h2>
+					<ul>
+						<li><a href="http://melonh.com/sharing/slides.html?file=high_performance_animation">参考的ppt</a></li>
+						<li><a href="https://www.chromium.org/developers/design-documents/gpu-accelerated-compositing-in-chrome">GPU Accelerated Compositing in Chrome</a></li>
+						<li><a href="http://www.html5rocks.com/zh/tutorials/speed/high-performance-animations/">High Performance Animations</a></li>
+					</ul>
 				</section>
 
-				<section>
-					例子
-				</section>
-
-				<section>
-					gpu加速
-
-					gpu就像盖章,cpu像手绘
-				</section>
-
-				<section>
-					layer模型
-
-					layer怎么建立
-
-					will-change
-
-					chrome查看layer
-
-				</section>
-
-				<section>
-					节省了哪些时间
-				</section>
-
-				<section>
-					FPS
-					对比图
-				</section>
-
-				<section>
-					绘制时机
-					绘制时间
-				</section>
-
-				<section>
-					绘制时机
-					...
-					...
-					...
-				</section>
-
-				<section>
-					有木有例子
-				</section>
-
-				<section>
-					绘制时间
-					...
-					...
-					...
-				</section>
-
-				<section>
-					有木有例子
+				<section data-background="#b5533c">
+					<h1>Thanks</h1>
 				</section>
 			</div>
 
